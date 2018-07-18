@@ -22,18 +22,18 @@ def convert_data():
 
                 # actualization of data =)
                 timestamp = 0
+                cql = ""
+
                 if json_obj['ts']:
                     json_obj['ts'].replace('2016', '2017')
 
                 if json_obj['event'] == 'start':
-                    json_obj['ts_start'] = json_obj['ts']
+                    cql = "UPDATE a.events SET ts_start='%(ts)s', country='%(country)s' WHERE player_id='%(player_id)s' AND session_id=%(session_id)s;\n" % json_obj
+
                 else:
-                    json_obj['ts_end'] = json_obj['ts']
+                    cql = "UPDATE a.events SET ts_end='%(ts)s' WHERE player_id='%(player_id)s' AND session_id=%(session_id)s;\n" % json_obj
 
-                del json_obj['event']
-                del json_obj['ts']
-
-                f.write("INSERT INTO a.events JSON '" + json.dumps(json_obj).strip() + "';\n")
+                f.write(cql)
 
     f.close()
 
