@@ -20,6 +20,5 @@ def convert_data():
 
     f.close()
 
-
 if __name__ == '__main__':
     convert_data()
