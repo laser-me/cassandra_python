@@ -14,6 +14,14 @@ def cassandra_test():
     r = session.execute(cql)
     return str(r[0])
 
+@app.route("/history")
+def history():
+    session = cassandra.connect()
+    session.set_keyspace("assignment")
+    cql = "SELECT * FROM events_by_country PER PARTITION LIMIT 10;"
+    r = session.execute(cql)
+    return str(r[0])
+
 @app.route("/test")
 def test():
     return ('Hello to you', 200)
