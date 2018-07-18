@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  python:
+    container_name: python
+    build: .
+    ports:
+      - 8000:5000
+    links:
+      - cassandra
+    volumes:
+      - .:/usr/src/app
+    entrypoint: sh
+    command: -c "python app.py"
+
+
+  cassandra:
+    container_name: cassandra
+    image: cassandra:3.1
