@@ -3,7 +3,7 @@ import json
 from helpers.parser import parse_event
 
 # limiting big file for testing
-limit = 100
+limit = None
 
 
 def convert_data():
