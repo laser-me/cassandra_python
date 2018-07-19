@@ -22,3 +22,12 @@ CREATE MATERIALIZED VIEW IF NOT EXISTS a.events_complete AS
     WHERE ts_start IS NOT NULL AND ts_end IS NOT NULL AND player_id IS NOT NULL AND session_id IS NOT NULL AND country IS NOT NULL
     PRIMARY KEY ((player_id), ts_end, session_id, country)
     WITH CLUSTERING ORDER BY (ts_end DESC);
+
+CREATE TABLE IF NOT EXISTS a.events_start_by_country (
+    player_id text,
+    country text,
+    event text,
+    session_id UUID,
+    ts timestamp,
+    PRIMARY KEY (country, ts)
+) WITH CLUSTERING ORDER BY (ts DESC);
