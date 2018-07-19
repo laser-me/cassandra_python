@@ -3,7 +3,7 @@ import json
 from helpers.parser import parse_event
 
 # limiting big file for testing
-limit = None
+limit = 100
 
 
 def convert_data():
@@ -20,9 +20,6 @@ def convert_data():
                 if limit and count > limit: break
 
                 json_obj = json.loads(line)
-
-                if json_obj['ts']:
-                    json_obj['ts'].replace('2016', '2017')
 
                 cql = parse_event(json_obj, actualize_time=True)
 
