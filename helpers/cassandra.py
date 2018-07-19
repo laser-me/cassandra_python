@@ -9,4 +9,4 @@ def execute(cql, parameters=None):
 
     r = session.execute(cql, parameters)
 
-    return str(r[0])
+    return r.current_rows

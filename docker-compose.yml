@@ -18,3 +18,5 @@ services:
   cassandra:
     container_name: cassandra
     build: cassandra_data
+    ports:
+      - 9042:9042
