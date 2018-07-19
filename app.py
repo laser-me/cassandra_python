@@ -9,7 +9,7 @@ from rest.sessions_start import SessionsStart
 app = Flask(__name__)
 api = Api(app)
 
-app.config['CASSANDRA_NODES'] = ['cassandra']  # can be a string or list of nodes
+app.config['CASSANDRA_NODES'] = ['localhost']  # can be a string or list of nodes
 cassandra = CassandraCluster()
 
 api.add_resource(Events, '/events')
