@@ -24,7 +24,7 @@ def convert_data():
                 if json_obj['ts']:
                     json_obj['ts'].replace('2016', '2017')
 
-                cql = parse_event(json_obj)
+                cql = parse_event(json_obj, actualize_time=True)
 
                 f.write(cql)
 

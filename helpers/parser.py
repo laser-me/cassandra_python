@@ -1,8 +1,8 @@
 import json
 
 
-def parse_event(json_obj):
-    if json_obj['ts']:
+def parse_event(json_obj, actualize_time=False):
+    if actualize_time and json_obj['ts']:
         json_obj['ts'].replace('2016', '2017')
 
     if json_obj['event'] == 'start':
