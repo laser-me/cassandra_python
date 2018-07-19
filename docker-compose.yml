@@ -17,4 +17,4 @@ services:
 
   cassandra:
     container_name: cassandra
-    build: ./cassandra
+    build: cassandra_data
