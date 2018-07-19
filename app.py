@@ -1,31 +1,16 @@
 from flask import Flask
+from flask_restful import Api
 from flask_cassandra import CassandraCluster
 
+from rest.events import Events
+
 app = Flask(__name__)
-cassandra = CassandraCluster()
+api = Api(app)
 
 app.config['CASSANDRA_NODES'] = ['cassandra']  # can be a string or list of nodes
+cassandra = CassandraCluster()
 
-@app.route("/cassandra_test")
-def cassandra_test():
-    session = cassandra.connect()
-    session.set_keyspace("monty_python")
-    cql = "SELECT * FROM sketches LIMIT 1"
-    r = session.execute(cql)
-    return str(r[0])
-
-@app.route("/history")
-def history():
-    session = cassandra.connect()
-    session.set_keyspace("assignment")
-    cql = "SELECT * FROM events_by_country PER PARTITION LIMIT 10;"
-    r = session.execute(cql)
-    return str(r[0])
-
-@app.route("/test")
-def test():
-    return ('Hello to you', 200)
-
+api.add_resource(Events, '/events')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
