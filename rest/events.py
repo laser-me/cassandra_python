@@ -4,7 +4,7 @@ from helpers.parser import parse_event
 from helpers.cassandra import execute
 
 parser = reqparse.RequestParser()
-parser.add_argument('events', action='append')
+parser.add_argument('events', type=dict, location='json', action='append')
 
 
 def insert_into_cassandra(event):
