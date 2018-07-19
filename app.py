@@ -3,6 +3,8 @@ from flask_restful import Api
 from flask_cassandra import CassandraCluster
 
 from rest.events import Events
+from rest.sessions_complete import SessionsComplete
+from rest.sessions_start import SessionsStart
 
 app = Flask(__name__)
 api = Api(app)
@@ -11,6 +13,8 @@ app.config['CASSANDRA_NODES'] = ['cassandra']  # can be a string or list of node
 cassandra = CassandraCluster()
 
 api.add_resource(Events, '/events')
+api.add_resource(SessionsStart, '/starts')
+api.add_resource(SessionsComplete, '/complete')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
