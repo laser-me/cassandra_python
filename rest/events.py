@@ -1,4 +1,4 @@
-from flask_restful import reqparse, Resource
+from flask_restful import reqparse, Resource, abort
 
 from helpers.parser import parse_event
 from helpers.cassandra import execute
@@ -16,6 +16,8 @@ def insert_into_cassandra(event):
 class Events(Resource):
     def post(self):
         args = parser.parse_args()
+
+        if not args['events']: abort(404, message="No events provided")
         for event in args['events']:
             insert_into_cassandra(event)
 

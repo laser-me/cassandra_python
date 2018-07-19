@@ -13,8 +13,8 @@ app.config['CASSANDRA_NODES'] = ['cassandra']  # can be a string or list of node
 cassandra = CassandraCluster()
 
 api.add_resource(Events, '/events')
-api.add_resource(SessionsStart, '/starts')
-api.add_resource(SessionsComplete, '/complete')
+api.add_resource(SessionsStart, '/starts/<int:hours>')
+api.add_resource(SessionsComplete, '/complete/<string:player_id>')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
