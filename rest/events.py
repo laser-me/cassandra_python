@@ -7,18 +7,16 @@ parser = reqparse.RequestParser()
 parser.add_argument('events', type=dict, location='json', action='append')
 
 
-def insert_into_cassandra(event):
-    cql = parse_event(event)
-
-    execute(cql)
-
-
 class Events(Resource):
     def post(self):
         args = parser.parse_args()
 
+        cql = "BEGIN BATCH \n"
         if not args['events']: abort(404, message="No events provided")
         for event in args['events']:
-            insert_into_cassandra(event)
+            cql = cql + parse_event(event)
 
+        cql = cql + "APPLY BATCH;"
+        print(cql)
+        execute(cql)
         return 'OK', 201
